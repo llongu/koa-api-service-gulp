@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>login</title>
+  <link href='https://cdn.staticfile.org/antd/4.4.3/antd.min.css' rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .ant-form {
+      width: 600px;
+      margin: 0 auto;
+      margin-top: 15%;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>login page</h2>
+  <div id="app">
+
+  </div>
+  <script type="text/babel">
+
+    const layout = {
+      labelCol: {
+        span: 8,
+      },
+      wrapperCol: {
+        span: 16,
+      },
+    };
+    const tailLayout = {
+      wrapperCol: {
+        offset: 8,
+        span: 16,
+      },
+    };
+
+    const Login = () => {
+      const onFinish = values => {
+        console.log('Success:', values);
+        fetch('./login', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(values)
+        }).then(response => response.json())
+          .then(data => {
+            setTimeout(() => {
+              if (!data.code) {
+                window.location.href = '/'
+              }
+            }, 1000);
+          })
+          .catch(e => console.log("Oops, error", e))
+      };
+
+      const onFinishFailed = errorInfo => {
+        console.log('Failed:', errorInfo);
+      };
+
+      return (
+        <antd.Form
+          {...layout}
+          name="basic"
+          initialValues={{
+            username: 'admin',
+            password: '123456',
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <antd.Form.Item
+            label="Username"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your username!',
+              },
+            ]}
+          >
+            <antd.Input />
+          </antd.Form.Item>
+
+          <antd.Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+          >
+            <antd.Input.Password />
+          </antd.Form.Item>
+
+          <antd.Form.Item {...tailLayout}>
+            <antd.Button type="primary" htmlType="submit">
+              Submit
+          </antd.Button>
+          </antd.Form.Item>
+        </antd.Form>
+      );
+    };
+
+    ReactDOM.render(<Login />, document.getElementById('app'));
+  </script>
+</body>
+<script src='https://cdn.staticfile.org/react/16.13.1/umd/react.production.min.js'></script>
+<script src='https://cdn.staticfile.org/react-dom/16.13.1/umd/react-dom.production.min.js'></script>
+<script src='https://cdn.staticfile.org/antd/4.4.3/antd.min.js'></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+</html>

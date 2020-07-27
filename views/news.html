@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %} [[title]] {% endblock%}
+{% block head %}
+<!-- <link src=''> -->
+{% endblock%}
+
+{% block content %}
+<h2>news page</h2>
+<ul>
+  {% for i in data %}
+
+  <li>
+    <h3>[[i.name]]</h3>
+    <br />
+    <p> [[i.text]]</p>
+  </li>
+  {% endfor %}
+
+</ul>
+{% endblock %}
+
+{% block script %}
+<!-- <script src='www.js'></script> -->
+{% endblock %}

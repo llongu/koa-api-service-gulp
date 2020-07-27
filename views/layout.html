@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  {% block head %}{% endblock %}
+  <style>
+    /* * {
+      margin: 0;
+      padding: 0;
+    } */
+    a {
+      padding: 20px;
+    }
+
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <nav>
+      <a href="/">index page</a>
+      <a href="list">list page</a>
+      <a href="news">news page</a>
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+{% block script %}{% endblock %}
+
+</html>
